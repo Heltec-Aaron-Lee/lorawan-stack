@@ -198,7 +198,7 @@ const DeviceRepository = props => {
       formRef.current.setValues(stateToFormValues(state), false)
       versionRef.current = version
     }
-  }, [getRegistrationTemplate, hasCompleted, state, template, version])
+  }, [getRegistrationTemplate, hasCompleted, state, stateKey, template, version])
 
   React.useEffect(() => {
     const templateChanged = template !== templateRef.current
