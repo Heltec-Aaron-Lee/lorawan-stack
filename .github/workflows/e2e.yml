@@ -62,7 +62,7 @@ jobs:
         run: tools/bin/mage -v dev:dbStop dev:dbErase dev:dbStart dev:initStack dev:sqlDump
       - name: Build frontend
         if: steps.public-cache.outputs.cache-hit != 'true'
-        run: tools/bin/mage js:build
+        run: tools/bin/mage -v js:build
       - name: Run frontend end-to-end tests
         run: tools/bin/mage dev:startDevStack & tools/bin/mage -v js:cypressHeadless
       - name: Upload logs
