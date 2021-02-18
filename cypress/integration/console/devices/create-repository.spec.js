@@ -50,10 +50,11 @@ describe('End device repository create', () => {
 
     beforeEach(() => {
       cy.loginConsole({ user_id: user.ids.user_id, password: user.password })
-      cy.visit(`${Cypress.config('consoleRootPath')}/applications/${appId}/devices/add/repository`)
     })
 
     it('displays UI elements in place', () => {
+      cy.visit(`${Cypress.config('consoleRootPath')}/applications/${appId}/devices/add/repository`)
+
       cy.findByText('Register end device', { selector: 'h1' }).should('be.visible')
       cy.findByRole('button', { name: 'From The LoRaWAN Device Repository' })
         .should('be.visible')
@@ -128,6 +129,21 @@ describe('End device repository create', () => {
         cy.fixture('console/devices/repository/brands.json').then(brandsJson => {
           cy.intercept('GET', `/dr/applications/${appId}/brands`, brandsJson)
         })
+
+        cy.visit(
+          `${Cypress.config('consoleRootPath')}/applications/${appId}/devices/add/repository`,
+        )
+      })
+
+      it('succeeds handling incomplete model', () => {
+        cy.findByLabelText('Brand').selectOption('test-brand-otaa')
+        cy.findByLabelText('Model').selectOption('test-model1')
+        cy.findByLabelText('Hardware Ver.').selectOption('1.0')
+
+        cy.findByTestId('notification')
+          .should('be.visible')
+          .should('contain', 'Your end device will be added soon!')
+        cy.findByTestId('device-registration').should('not.exist')
       })
 
       it('succeeds registering device with single region, hardware and firmware versions', () => {
@@ -151,17 +167,6 @@ describe('End device repository create', () => {
           `${Cypress.config('consoleRootPath')}/applications/${appId}/devices/${devId}`,
         )
         cy.findByTestId('full-error-view').should('not.exist')
-      })
-
-      it('succeeds handling incomplete model', () => {
-        cy.findByLabelText('Brand').selectOption('test-brand-otaa')
-        cy.findByLabelText('Model').selectOption('test-model1')
-        cy.findByLabelText('Hardware Ver.').selectOption('1.0')
-
-        cy.findByTestId('notification')
-          .should('be.visible')
-          .should('contain', 'Your end device will be added soon!')
-        cy.findByTestId('device-registration').should('not.exist')
       })
 
       it('validates before submitting an empty form', () => {
@@ -237,6 +242,12 @@ describe('End device repository create', () => {
           band_id: 'EU_863_870',
         })
       }
+
+      beforeEach(() => {
+        cy.visit(
+          `${Cypress.config('consoleRootPath')}/applications/${appId}/devices/add/repository`,
+        )
+      })
 
       it('displays UI elements in place', () => {
         selectUno()
