@@ -72,6 +72,6 @@ describe('Account App overview', () => {
     cy.visit(Cypress.config('accountAppRootPath'))
     cy.findByRole('link', { name: 'Go to the Console' }).click()
 
-    cy.location('pathname').should('eq', Cypress.config('consoleRootPath'))
+    cy.location('pathname').should('eq', `${Cypress.config('consoleRootPath')}/`)
   })
 })
