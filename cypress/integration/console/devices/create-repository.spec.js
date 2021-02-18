@@ -130,17 +130,6 @@ describe('End device repository create', () => {
         })
       })
 
-      it('succeeds handling incomplete model', () => {
-        cy.findByLabelText('Brand').selectOption('test-brand-otaa')
-        cy.findByLabelText('Model').selectOption('test-model1')
-        cy.findByLabelText('Hardware Ver.').selectOption('1.0')
-
-        cy.findByTestId('notification')
-          .should('be.visible')
-          .should('contain', 'Your end device will be added soon!')
-        cy.findByTestId('device-registration').should('not.exist')
-      })
-
       it('succeeds registering device with single region, hardware and firmware versions', () => {
         const devId = 'test-model2-device'
 
@@ -162,6 +151,17 @@ describe('End device repository create', () => {
           `${Cypress.config('consoleRootPath')}/applications/${appId}/devices/${devId}`,
         )
         cy.findByTestId('full-error-view').should('not.exist')
+      })
+
+      it('succeeds handling incomplete model', () => {
+        cy.findByLabelText('Brand').selectOption('test-brand-otaa')
+        cy.findByLabelText('Model').selectOption('test-model1')
+        cy.findByLabelText('Hardware Ver.').selectOption('1.0')
+
+        cy.findByTestId('notification')
+          .should('be.visible')
+          .should('contain', 'Your end device will be added soon!')
+        cy.findByTestId('device-registration').should('not.exist')
       })
 
       it('validates before submitting an empty form', () => {
