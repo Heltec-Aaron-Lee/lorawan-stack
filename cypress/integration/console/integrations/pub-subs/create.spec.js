@@ -195,7 +195,7 @@ describe('Application Pub/Sub create', () => {
 
         cy.location('pathname').should(
           'eq',
-          `${Cypress.config('consoleRootPath')}/applications/${appId}/integrations/pubsubs/add`,
+          `${Cypress.config('consoleRootPath')}/applications/${appId}/integrations/pubsubs`,
         )
       })
     })
