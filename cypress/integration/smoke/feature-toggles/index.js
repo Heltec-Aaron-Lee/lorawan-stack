@@ -48,7 +48,7 @@ const applicationFeatureToggles = defineSmokeTest(
 
     cy.findByTestId('navigation-sidebar').within(() => {
       cy.findByText('API Keys').should('not.exist')
-      cy.findByText('Collaborators').should('be.visible')
+      cy.findByText('Collaborators', { selector: 'span' }).should('be.visible')
     })
 
     cy.visit(
