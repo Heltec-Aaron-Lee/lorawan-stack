@@ -21,6 +21,8 @@ For details about compatibility between different releases, see the **Commitment
 
 ### Fixed
 
+- Conflict error when registering an end device via the wizard in the Console.
+
 ### Security
 
 ## [3.11.1] - 2021-02-18
