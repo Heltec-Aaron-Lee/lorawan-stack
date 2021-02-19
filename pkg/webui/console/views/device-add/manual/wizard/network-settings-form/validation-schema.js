@@ -114,15 +114,11 @@ const validationSchema = Yup.object({
             if (!pingSlot || !pingSlot.value) {
               return schema.strip()
             }
-
-            return schema.shape({
-              value: Yup.string(),
-            })
           })
         }
 
         return schema.shape({
-          value: Yup.string().required(sharedMessages.validateRequired),
+          value: Yup.string(),
         })
       },
     ),
